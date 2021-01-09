@@ -1,2 +1,5 @@
 # toughbook-brightness-control
-Just a quick python file I threw together to change the brightness on my Toughbook CF-C2 on Linux.
+Just a quick python file I threw together to change the brightness on my Toughbook CF-C2 on Linux. For whatever reason the layout of the brightness system files on my Toughbook CF-C2 were different than on any other laptops I've ever used on Linux and does not seem to be standard. Because of this I can't natively change my brightness on any distribution I've tried.
+
+# Set-Up
+This script has to be called as the root user or with sudo, as the system file determining screen brightness is owned by root. The way I set mine up is by copying the "brightness" file to "/usr/bin/brightness" so that I can call it as a command. Don't forget to give the file execution permissions before you copy it. This file works very well for the CF-C2 but with some modification to the file paths this could work on pretty much any laptop as far as I know. The brightness file should be reset on each boot so if you do accidently mess it up, forcing a reboot should fix it.

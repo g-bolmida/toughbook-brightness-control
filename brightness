@@ -1,0 +1,33 @@
+#!/bin/python3
+import os
+os.chmod("/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness", 0o666)
+os.chmod("/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/max_brightness", 0o666)
+file = open('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/max_brightness', 'r+')
+max_bright = file.read()
+int_max_bright = int(max_bright)
+file.close()
+file = open('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness', 'r+')
+current_bright = file.read()
+int_current_bright = int(current_bright)
+print("The current brightness is " + str(int_current_bright) + " and the maximum brightness is " + str(int_max_bright))
+print("-------------------------------------------------------------------")
+if input("If you would like to change the brightness enter 'y' otherwise enter any key to exit. ") == "y":
+    file.close()
+    new_brightness = input("What would you like the new brightness value to be? ")
+    try:
+        int(new_brightness)
+    except ValueError:
+        print ("Entry is not a number, exiting program...")
+        exit()
+    int_new_brightness = int(new_brightness)
+    if int_new_brightness <= int_max_bright and int_new_brightness >= 1:
+        file = open('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness', 'w')
+        file.write(str(int_new_brightness))
+        print("Value changed to " + str(int_new_brightness))
+    else:
+        print("That is not a valid entry, exiting program...")
+    file.close()
+else:
+    file.close()
+    exit()
+exit()
